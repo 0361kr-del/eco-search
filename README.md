@@ -7,7 +7,9 @@
 - HTML/CSS/Vanilla JavaScript 프론트엔드와 예시 자료 20개 구현.
 - 읽기 전용 Apps Script 전체 코드, 시트 생성 함수, 공개 필드 허용 목록, 180초 캐시, GitHub Pages 워크플로 제공.
 - Google Sheet 생성 완료: 교사 계정의 ChatGPT 폴더 안 교사용 자료 관리 시트. articles 시트에 20개 자료, 선택 목록, 공개 여부 체크박스가 있습니다. 원본 시트는 학생에게 공유하지 마세요.
-- GitHub 저장소 생성·Pages 배포·Apps Script 배포는 브라우저 로그인 완료가 확인되지 않아 아직 진행하지 못했습니다. 실제 `/exec` URL은 미설정이며 fallback 모드로 실행됩니다.
+- GitHub 저장소와 Pages 배포 완료: https://0361kr-del.github.io/eco-search/
+- Apps Script 프로젝트의 코드 저장까지 완료했습니다. 모든 사용자에게 로그인 없이 JSON을 공개하는 배포는 자동 승인 검토에서 차단되어 별도 사용자 승인 대기 중입니다. 실제 `/exec` URL은 미설정이며 현재 사이트는 fallback 모드로 실행됩니다.
+- Apps Script는 `@OnlyCurrentDoc`를 사용하여 연결된 문서 범위로 권한을 제한합니다.
 - 첨부되지 않은 미래엔 수업지도안/PPT 원본은 열람하지 않았습니다. 사용자 명세를 바탕으로 제작했습니다.
 - `npm test` 검증 결과와 브라우저 실행 상태는 `TEST-RESULTS.md`를 확인하세요.
 
@@ -198,6 +200,7 @@ node tests/browser.mjs
 아래와 `apps-script/Code.gs`는 동일합니다.
 
 ```javascript
+/** @OnlyCurrentDoc */
 /** Bound to the teacher's private spreadsheet. Public response uses an allowlist. */
 const SETTINGS = Object.freeze({SHEET_NAME: 'articles', CACHE_KEY: 'articles-public-v1', CACHE_SECONDS: 180, CHUNK_SIZE: 20000});
 const HEADERS = ['id','title','summary','content','source','author','date','image','type','tags','keywords','published','feedWeight','teacherCategory','difficulty'];

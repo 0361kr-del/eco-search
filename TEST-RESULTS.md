@@ -20,7 +20,8 @@
 - 브라우저 통합 테스트 파일은 제공했으나 이 환경에서 실행 완료하지 못했습니다. 로컬 Chromium이 없고 공식 다운로드도 정상 아카이브를 반환하지 않았습니다. 별도의 제공 브라우저는 localhost 접근을 ERR_BLOCKED_BY_CLIENT로 차단했습니다. 화면 스크린샷이나 실제 모바일 통과를 주장하지 않습니다.
 - `tests/browser.mjs`는 일반 로컬 개발 환경에서 실행하는 Playwright 테스트입니다. 실제 브라우저 실행 시 발견되는 문제가 있다면 수정 후 재검증해야 합니다.
 - Google Sheet 생성 및 커넥터 읽기 검증 완료. articles 탭의 20개 행, 전체 15개 열, native table과 type/teacherCategory/difficulty 선택 목록, 공개 여부 BOOLEAN, 날짜 형식, Asia/Seoul 시간대를 확인했습니다.
-- GitHub 커넥터 계정 연결은 확인했으나 저장소 생성 기능은 제공되지 않습니다. 브라우저 로그인이 아직 확인되지 않아 원격 저장소·Pages·Apps Script 배포는 미완료입니다.
+- GitHub 저장소 생성 및 GitHub Pages 배포 성공. GitHub Actions에서도 8개 테스트가 통과했습니다.
+- Apps Script 코드는 연결된 프로젝트에 저장했으며 구문 검사를 통과해 웹 앱 배포 설정 화면까지 열었습니다. 익명 API 공개 배포는 자동 승인 검토의 사용자 확인 요구로 보류했습니다.
 - Google API의 인증·CORS·캐시 실제 동작, Sheet 갱신 반영 및 교실 동시 접속은 아직 검증하지 못했습니다.
 
 따라서 코드와 mock 기반 검증을 완료한 전달본이며, 사용자 명세의 실제 배포까지 포함하는 MVP 완료 조건 전체를 충족했다고 판단하지 않습니다.

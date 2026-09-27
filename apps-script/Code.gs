@@ -1,3 +1,4 @@
+/** @OnlyCurrentDoc */
 /** Bound to the teacher's private spreadsheet. Public response uses an allowlist. */
 const SETTINGS = Object.freeze({SHEET_NAME: 'articles', CACHE_KEY: 'articles-public-v1', CACHE_SECONDS: 180, CHUNK_SIZE: 20000});
 const HEADERS = ['id','title','summary','content','source','author','date','image','type','tags','keywords','published','feedWeight','teacherCategory','difficulty'];
