@@ -22,7 +22,9 @@
 - `tests/browser.mjs`는 일반 로컬 개발 환경에서 실행하는 Playwright 테스트입니다. 실제 브라우저 실행 시 발견되는 문제가 있다면 수정 후 재검증해야 합니다.
 - Google Sheet 생성 및 커넥터 읽기 검증 완료. articles 탭의 20개 행, 전체 15개 열, native table과 type/teacherCategory/difficulty 선택 목록, 공개 여부 BOOLEAN, 날짜 형식, Asia/Seoul 시간대를 확인했습니다.
 - GitHub 저장소 생성 및 GitHub Pages 배포 성공. GitHub Actions에서도 8개 테스트가 통과했습니다.
-- Apps Script 코드는 연결된 프로젝트에 저장했으며 구문 검사를 통과해 웹 앱 배포 설정 화면까지 열었습니다. 익명 API 공개 배포는 자동 승인 검토의 사용자 확인 요구로 보류했습니다.
-- Google API의 인증·CORS·캐시 실제 동작, Sheet 갱신 반영 및 교실 동시 접속은 아직 검증하지 못했습니다.
+- Apps Script 웹 앱 공개 배포 및 GitHub Pages 연결 완료. 인증 쿠키 없는 HTTP GET으로 76개 자료와 새 기사 ID 71~76을 확인했습니다. API 응답에 teacherCategory, difficulty, published가 없는 것을 확인했습니다.
+- 실제 Pages 브라우저에서 API 자료의 추천 피드, ‘토양 산성화’ 검색 16건(세 토양 기사가 상위), 남산 기사 상세 본문·출처 표시를 확인했습니다. 앱의 치명적 콘솔 오류는 관찰되지 않았습니다.
+- Apps Script 프로젝트 시간대를 Asia/Seoul로 맞춰 버전 2를 배포했습니다. 초기 버전의 날짜 하루 차이를 수정했습니다.
+- Google API 인증과 실제 Pages의 교차 출처 데이터 로딩을 확인했습니다. Sheet 변경 후 캐시 만료 반영의 별도 변경 시험 및 교실 동시 접속은 아직 미검증입니다.
 
-따라서 코드와 mock 기반 검증을 완료한 전달본이며, 사용자 명세의 실제 배포까지 포함하는 MVP 완료 조건 전체를 충족했다고 판단하지 않습니다.
+실제 API 연결까지 완료했습니다. 실제 모바일/태블릿 기기 및 교실 규모 동시 접속 검증은 남아 있습니다.
