@@ -12,7 +12,7 @@ function render(){if(!ready)return;const query=normalize($('#query').value);$('#
   $('#empty').hidden=results.length>0 || Boolean(query&&query.length<CONFIG.MIN_QUERY_LENGTH);append(CONFIG.INITIAL_BATCH_SIZE);
 }
 async function load(){if(loading)return;loading=true;ready=false;$('#error').hidden=true;$('#notice').hidden=true;$('#empty').hidden=true;$('#end').hidden=true;$('#more').hidden=true;$('#feed').replaceChildren();$('#feed').setAttribute('aria-busy','true');$('#status').textContent='자료를 불러오는 중';for(let i=0;i<3;i++)$('#feed').append(el('div',undefined,'skeleton'));
-  try{const {items,mode}=await loadArticles(CONFIG);recommended=weightedOrder(items);ready=true;render();if(mode!=='live'){const notice=$('#notice');notice.replaceChildren(el('span',mode==='demo'?'수업용 예시 자료를 둘러보고 있어요.':'실시간 자료를 불러오지 못해 준비된 예시 자료를 보여 드려요.'));if(mode==='fallback'){const retry=el('button','다시 시도');retry.addEventListener('click',load);notice.append(retry);}notice.hidden=false;}}
+  try{const {items,mode}=await loadArticles(CONFIG);recommended=weightedOrder(items);ready=true;render();if(mode==='fallback'){const notice=$('#notice');notice.replaceChildren(el('span','실시간 자료를 불러오지 못해 준비된 자료를 보여 드려요.'));const retry=el('button','다시 시도');retry.addEventListener('click',load);notice.append(retry);notice.hidden=false;}}
   catch{$('#feed').replaceChildren();$('#error').hidden=false;$('#status').textContent='자료를 불러올 수 없어요';}
   finally{loading=false;$('#feed').setAttribute('aria-busy','false');}}
 $('#search-form').addEventListener('submit',event=>{event.preventDefault();render();window.scrollTo({top:0});});
