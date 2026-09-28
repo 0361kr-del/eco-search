@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="440" viewBox="0 0 800 440" role="img" aria-label="마이크와 무대 조명을 표현한 음악 주제 일러스트">
+<defs><linearGradient id="g" x2="1" y2="1"><stop stop-color="#2c2244"/><stop offset="1" stop-color="#81678d"/></linearGradient><linearGradient id="m" x2="1"><stop stop-color="#f1e9ef"/><stop offset=".5" stop-color="#b9adca"/><stop offset="1" stop-color="#efe8f0"/></linearGradient><pattern id="mesh" width="9" height="9" patternUnits="userSpaceOnUse"><path d="M0 0H9M0 0V9" stroke="#71657f" stroke-width="1.5"/></pattern></defs>
+<rect width="800" height="440" fill="url(#g)"/><path d="m120 0 115 440H5Z" fill="#dfc2f2" opacity=".1"/><path d="m650 0 145 440H455Z" fill="#f0c5df" opacity=".12"/>
+<g fill="#f0d8ed" opacity=".6"><circle cx="150" cy="126" r="3"/><circle cx="661" cy="169" r="4"/><circle cx="561" cy="92" r="3"/><circle cx="243" cy="290" r="3"/><path d="m604 284 5 13 13 5-13 5-5 13-5-13-13-5 13-5Z"/></g>
+<g transform="rotate(28 400 220)"><rect x="370" y="190" width="60" height="161" rx="24" fill="url(#m)"/><rect x="337" y="83" width="126" height="151" rx="63" fill="url(#m)"/><rect x="344" y="90" width="112" height="137" rx="56" fill="url(#mesh)"/><path d="M337 164H463M344 193H456" stroke="#807087" stroke-width="6"/><rect x="390" y="258" width="20" height="28" rx="7" fill="#504558"/><path d="M400 351V382Q400 410 450 410" fill="none" stroke="#342c41" stroke-width="8"/></g>
+<text x="42" y="415" fill="#f0e8f4" font-size="13" font-family="sans-serif" letter-spacing="2">MUSIC · ILLUSTRATION</text>
+</svg>

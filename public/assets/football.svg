@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="440" viewBox="0 0 800 440" role="img" aria-label="축구공과 경기장을 표현한 주제 일러스트">
+<defs><linearGradient id="g" x2="1" y2="1"><stop stop-color="#123c32"/><stop offset="1" stop-color="#76a184"/></linearGradient><radialGradient id="b"><stop stop-color="#fff"/><stop offset="1" stop-color="#d6e1dd"/></radialGradient></defs>
+<rect width="800" height="440" fill="url(#g)"/><path d="M0 330 800 190V255L0 395ZM0 170 800 30V95L0 235Z" fill="#fff" opacity=".05"/>
+<g fill="none" stroke="#d0e2d4" stroke-width="3" opacity=".4"><rect x="40" y="40" width="720" height="360" rx="4"/><path d="M400 40V400M40 120H155V320H40M760 120H645V320H760"/><circle cx="400" cy="220" r="80"/></g>
+<ellipse cx="407" cy="353" rx="138" ry="22" fill="#08271e" opacity=".28"/>
+<circle cx="400" cy="224" r="123" fill="url(#b)" stroke="#f3f6f4" stroke-width="5"/>
+<g fill="#203930" stroke="#203930" stroke-width="5" stroke-linejoin="round"><path d="m400 171 48 35-18 56h-60l-18-56Z"/><path d="m309 146 31-20 20 24-26 38-38-4Z M475 128 32 43-11 28-41-14-7-39Z M514 252l-18 51-35 15-19-41 27-32Z M382 345l-53-21-8-32 42-12 32 27Z"/></g>
+<g fill="none" stroke="#80988b" stroke-width="3"><path d="m352 206-18-18m66-17-40-21m88 56 7-21m-25 77 12 15m-72-15-7 18m-67-96-13 49m38 59-30-15m104 30 66 11m35-119 18 53m-154-102 88-4"/></g>
+<text x="42" y="415" fill="#e8f0eb" font-size="13" font-family="sans-serif" letter-spacing="2">FOOTBALL · ILLUSTRATION</text>
+</svg>
