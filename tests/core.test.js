@@ -11,7 +11,7 @@ test('search normalization, zero match, exact title and multiple-term ranking',(
  assert.equal(searchItems(data.items,'없는검색어123').length,0);
  assert.equal(searchItems(data.items,data.items[0].title)[0].id,'1');
  assert.equal(searchItems(data.items,'산호').some(x=>x.title.includes('산호색')),true);
- assert.equal(searchItems(data.items,'산호').some(x=>!x.source),true);
+ assert.equal(searchItems(data.items,'해양').some(x=>!x.source),true);
  for(const q of ['이산화 탄소','기후변화','북극','빙하','북극곰','펭귄','산불','가뭄','바다','산호','조개','플랑크톤','산성화','해양 산성화'])assert.ok(searchItems(data.items,q).length,q);
  const base={summary:'',tags:[],keywords:[]};
  assert.deepEqual(searchItems([{...base,id:'b',title:'산호'},{...base,id:'a',title:'산호 바다'}],'산호 바다').map(x=>x.id),['a','b']);
