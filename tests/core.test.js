@@ -9,7 +9,7 @@ test('public dataset: 150 unique articles and only allowed fields',()=>{assert.e
 test('search normalization, zero match, exact title and multiple-term ranking',()=>{
  assert.deepEqual(searchItems(data.items,'  스마트팜  '),searchItems(data.items,'스마트팜'));
  assert.equal(searchItems(data.items,'없는검색어123').length,0);
- assert.equal(searchItems(data.items,data.items[0].title)[0].id,'1');
+ assert.equal(searchItems(data.items,data.items[0].title)[0].id,data.items[0].id);
  assert.ok(searchItems(data.items,'스마트팜').length>0);
  assert.ok(searchItems(data.items,'KBO').length>0);
  assert.ok(searchItems(data.items,'EPL').length>0);
