@@ -9,8 +9,7 @@ export function imageNode(item) {
 export function card(item,open) {
   const article=el('article',undefined,'card'), button=el('button',undefined,'card-link');
   button.type='button';button.setAttribute('aria-label',item.title+' 전체 읽기');
-  const image=imageNode(item);if(image)button.append(image);
-  button.append(el('span',types[item.type]||'자료','type'),el('h2',item.title),el('p',item.summary,'summary'));
+  button.append(el('span',types[item.type]||'자료','type'),el('h2',item.title));
   const meta=el('div',undefined,'meta');meta.append(el('span',item.source||'출처: 표시 없음'),el('span',item.date||'날짜: 표시 없음'));
   button.append(meta);button.addEventListener('click',()=>open(item,button));article.append(button);return article;
 }
