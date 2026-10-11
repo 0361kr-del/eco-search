@@ -8,3 +8,10 @@
 .card .type{margin-bottom:5px}
 .card .meta{font-size:13px}
 @media(max-width:600px){.card{padding:16px;margin-bottom:10px;border-radius:12px}.card h2{font-size:19px}}
+
+/* The landing page contains only the centered search form. */
+.wordmark{display:none}
+body.home header{position:static;min-height:100vh;min-height:100svh;display:flex;align-items:center;justify-content:center;border-bottom:0;background:#fff;padding:24px 16px;backdrop-filter:none}
+body.home form{width:min(760px,100%);margin:0}
+body.home .skip{display:none}
+.feed-meta #status{letter-spacing:normal;font-size:14px}
