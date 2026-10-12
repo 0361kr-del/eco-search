@@ -1,6 +1,6 @@
 import {CONFIG} from './config.js';
 import {loadArticles} from './js/api.js';
-import {searchItems,normalize} from './js/search.js';
+import {searchItems,normalize} from './js/search.js?v=terms-20261012';
 import {card,el} from './js/feed.js';
 import {createDetail} from './js/modal.js';
 const $=selector=>document.querySelector(selector),open=createDetail();
