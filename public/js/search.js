@@ -35,7 +35,7 @@ export function searchItems(items,query){
    for(const term of terms){
      let best=0;
      for(const variant of aliases.get(term)||[term]){
-       const contains=text=>text===variant||(variant.length>=2&&text.includes(variant));
+       const contains=text=>text===variant||((variant.length>=2||/^[가-힣]$/.test(variant))&&text.includes(variant));
        const points=(contains(title)?8:0)+(tags.some(t=>t===variant)?7:tags.some(contains)?4:0)
          +(keywords.some(t=>t===variant)?5:keywords.some(contains)?3:0)+(contains(summary)?2:0);
        best=Math.max(best,points*(variant===term?1:0.8));
