@@ -5,7 +5,7 @@ import vm from 'node:vm';
 import {searchItems,weightedOrder} from '../public/js/search.js';
 import {sanitize,loadArticles} from '../public/js/api.js';
 const data=JSON.parse(fs.readFileSync(new URL('../public/data/fallback.json',import.meta.url)));
-test('public dataset: 150 unique articles and only allowed fields',()=>{assert.equal(data.items.length,150);assert.equal(new Set(data.items.map(x=>x.id)).size,150);for(const item of data.items)assert.deepEqual(Object.keys(item).sort(),['id','title','summary','content','source','author','date','image','type','tags','keywords','feedWeight'].sort());});
+test('public dataset: 200 unique articles and only allowed fields',()=>{assert.equal(data.items.length,200);assert.equal(new Set(data.items.map(x=>x.id)).size,200);for(const item of data.items)assert.deepEqual(Object.keys(item).sort(),['id','title','summary','content','source','author','date','image','type','tags','keywords','feedWeight'].sort());});
 test('search normalization, zero match, exact title and multiple-term ranking',()=>{
  assert.deepEqual(searchItems(data.items,'  스마트팜  '),searchItems(data.items,'스마트팜'));
  assert.equal(searchItems(data.items,'없는검색어123').length,0);
@@ -21,7 +21,7 @@ test('search normalization, zero match, exact title and multiple-term ranking',(
 });
 test('weighted sampling has no repeats and favors higher weights',()=>{
  let seed=13;const random=()=>((seed=(seed*1664525+1013904223)>>>0)/4294967296);
- assert.equal(new Set(weightedOrder(data.items,random).map(x=>x.id)).size,150);
+ assert.equal(new Set(weightedOrder(data.items,random).map(x=>x.id)).size,200);
  let wins=0;for(let i=0;i<2000;i++)if(weightedOrder([{id:'high',feedWeight:10},{id:'low',feedWeight:1}],random)[0].id==='high')wins++;
  assert.ok(wins>1700&&wins<1900);
 });
