@@ -56,3 +56,16 @@ test('client fallback, strict errors and timeout',async()=>{
  globalThis.fetch=async(url,{signal})=>new Promise((_,reject)=>signal.addEventListener('abort',()=>reject(Error('timeout'))));await assert.rejects(()=>loadArticles({...config,ALLOW_FALLBACK:false}));
  }finally{globalThis.fetch=original;}
 });
+
+test('student vocabulary, spacing, hashtags and aliases retrieve relevant articles',()=>{
+ const ids=q=>searchItems(data.items,q).map(x=>x.id);
+ assert.ok(ids('환경오염').length>=10);
+ assert.deepEqual(ids('환경 오염'),ids('환경오염'));
+ assert.deepEqual(ids('#환경오염'),ids('환경오염'));
+ assert.ok(!searchItems(data.items,'환경오염').some(x=>x.tags.includes('스포츠')));
+ assert.deepEqual(new Set(ids('AI')),new Set(ids('인공지능')));
+ assert.deepEqual(new Set(ids('스마트 농장')),new Set(ids('스마트팜')));
+ assert.ok(searchItems(data.items,'환경오염 직업')[0].title.includes('직업'));
+ assert.deepEqual(searchItems([{id:'x',title:'내용',tags:['환경 오염'],keywords:[]}],'환경오염').map(x=>x.id),['x']);
+ assert.equal(searchItems(data.items,'없는검색어123').length,0);
+});
