@@ -5,7 +5,7 @@ import vm from 'node:vm';
 import {searchItems,weightedOrder} from '../public/js/search.js';
 import {sanitize,loadArticles} from '../public/js/api.js';
 const data=JSON.parse(fs.readFileSync(new URL('../public/data/fallback.json',import.meta.url)));
-test('public dataset: 200 unique articles and only allowed fields',()=>{assert.equal(data.items.length,200);assert.equal(new Set(data.items.map(x=>x.id)).size,200);for(const item of data.items)assert.deepEqual(Object.keys(item).sort(),['id','title','summary','content','source','author','date','image','type','tags','keywords','feedWeight'].sort());});
+test('public dataset: 250 unique articles and only allowed fields',()=>{assert.equal(data.items.length,250);assert.equal(new Set(data.items.map(x=>x.id)).size,250);for(const item of data.items)assert.deepEqual(Object.keys(item).sort(),['id','title','summary','content','source','author','date','image','type','tags','keywords','feedWeight'].sort());});
 test('search normalization, zero match, exact title and multiple-term ranking',()=>{
  assert.deepEqual(searchItems(data.items,'  스마트팜  '),searchItems(data.items,'스마트팜'));
  assert.equal(searchItems(data.items,'없는검색어123').length,0);
@@ -21,7 +21,7 @@ test('search normalization, zero match, exact title and multiple-term ranking',(
 });
 test('weighted sampling has no repeats and favors higher weights',()=>{
  let seed=13;const random=()=>((seed=(seed*1664525+1013904223)>>>0)/4294967296);
- assert.equal(new Set(weightedOrder(data.items,random).map(x=>x.id)).size,200);
+ assert.equal(new Set(weightedOrder(data.items,random).map(x=>x.id)).size,250);
  let wins=0;for(let i=0;i<2000;i++)if(weightedOrder([{id:'high',feedWeight:10},{id:'low',feedWeight:1}],random)[0].id==='high')wins++;
  assert.ok(wins>1700&&wins<1900);
 });
@@ -68,4 +68,8 @@ test('student vocabulary, spacing, hashtags and aliases retrieve relevant articl
  assert.ok(searchItems(data.items,'환경오염 직업')[0].title.includes('직업'));
  assert.deepEqual(searchItems([{id:'x',title:'내용',tags:['환경 오염'],keywords:[]}],'환경오염').map(x=>x.id),['x']);
  assert.equal(searchItems(data.items,'없는검색어123').length,0);
+});
+
+test('science solution cases are discoverable with student problem words',()=>{
+ for(const [query,id] of [["환경오염","career-249"],["플라스틱 쓰레기","career-249"],["물부족","career-246"],["노인 건강","career-240"],["식량문제","career-248"],["이산화 탄소","career-211"],["과학 문제 해결","career-250"]]) assert.ok(searchItems(data.items,query).some(item=>item.id===id),query);
 });
