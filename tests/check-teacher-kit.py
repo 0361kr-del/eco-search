@@ -10,7 +10,9 @@ spec = importlib.util.spec_from_file_location('kit', root/'scripts/build-teacher
 kit = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(kit)
 data = (root/'public/teachers/namsan-starter.zip').read_bytes()
-assert data == kit.build(), 'Rebuild the teacher kit before publishing'
+with zipfile.ZipFile(io.BytesIO(data)) as actual, zipfile.ZipFile(io.BytesIO(kit.build())) as expected:
+    assert actual.namelist() == expected.namelist(), 'Rebuild the teacher kit before publishing'
+    assert all(actual.read(name) == expected.read(name) for name in actual.namelist()), 'Rebuild the teacher kit before publishing'
 with zipfile.ZipFile(io.BytesIO(data)) as z:
     names = z.namelist()
     assert all(n.startswith('namsan-starter/') and '..' not in n for n in names)

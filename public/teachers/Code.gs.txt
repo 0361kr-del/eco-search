@@ -86,4 +86,3 @@ function setupArticlesSheet() {
   sheet.getRange(2,14,999,1).setDataValidation(SpreadsheetApp.newDataValidation().requireValueInList(['valid','relevance_trap','source_trap','causality_trap','insufficient','dummy'],true).build());
   sheet.getRange(2,15,999,1).setDataValidation(SpreadsheetApp.newDataValidation().requireValueInList(['easy','normal','hard'],true).build());
 }
-
