@@ -2,7 +2,15 @@
 
 폐쇄형 자료 목록에서 자료를 찾고, 출처·관련성·인과관계를 학생이 직접 판단하는 검색/피드입니다. 정답, 신뢰도, 교사용 분류를 화면에 표시하지 않습니다. 계정, 검색 기록, 분석 추적, 저장 기능은 없습니다.
 
-## 전달 상태
+## 현재 운영 자료 (2026-10-14)
+
+현재 articles 시트와 공개 fallback 스냅샷은 총 250건입니다. 기존 200건을 유지하고 미래 사회의 문제를 과학으로 해결하는 사례 50건(career-201~250)을 추가했습니다. 신규 글은 한국화학연구원 16건, NASA Spinoff 28건, MIT News 5건, WIPO 1건의 실제 발표 자료를 바탕으로 초등학생용으로 재구성했습니다. 발표일은 2025-12-30~2026-10-07이며, 과거 사례를 소개하는 기사에서는 사건 시점과 발표일을 구분했습니다.
+
+각 글은 세 문단으로 문제·과학적 방법·확인된 성과와 적용 범위를 설명합니다. 원문 URL과 발표일은 비공개 관리 시트의 source 셀 메모에 기록했습니다. 실험·시범 운영·상용 활용을 본문에서 구분하며 자동 신뢰도 판정은 하지 않습니다. 환경오염, 물부족, 식량문제, 노인건강 등 학생의 표현을 tags와 keywords에 넣었습니다. 공개 fallback은 교사용 필드를 포함하지 않습니다.
+
+아래 초기 구현 기록의 20건·76건은 당시 기준이며, 현재 운영 자료 수가 아닙니다. 현재 테스트는 `npm test`를 기준으로 확인하세요.
+
+## 초기 구현 기록
 
 - HTML/CSS/Vanilla JavaScript 프론트엔드와 예시 자료 20개 구현.
 - 읽기 전용 Apps Script 전체 코드, 시트 생성 함수, 공개 필드 허용 목록, 180초 캐시, GitHub Pages 워크플로 제공.
@@ -39,7 +47,7 @@ eco-search/
       search.js              # 검색 점수 및 가중 무작위 순서
       feed.js                # 안전한 카드 DOM
       modal.js               # dialog, 뒤로, Esc, 포커스 복원
-    data/fallback.json       # 교사용 분류가 없는 예시 20개
+    data/fallback.json       # 교사용 분류가 없는 공개 스냅샷 250개
     assets/ice.svg           # 수업용 가상 관측 그래프
     assets/ph.svg
   apps-script/Code.gs
@@ -134,7 +142,7 @@ ContentService는 Google의 콘텐츠 주소로 리디렉션합니다. fetch는 
 
 `config.js`에서 API_URL, FALLBACK_URL, ALLOW_FALLBACK, 초기/추가 개수, 최소 검색어 길이, 요청 제한시간을 바꿉니다. CACHE_VERSION은 향후 클라이언트 캐시용 예약 값이며 현재 브라우저 데이터 캐시는 없습니다. 서버 캐시를 갱신하려면 Code.gs의 CACHE_KEY를 바꾸거나 clearArticleCache를 사용하세요.
 
-- 기본 요청 제한은 12초입니다. 실패하면 준비된 fallback을 읽습니다.
+- 현재 요청 제한은 30초입니다. 실패하면 준비된 fallback을 읽습니다.
 - fallback 전환 시 화면에 실시간 자료 실패 사실과 다시 시도를 표시합니다.
 - API와 fallback이 모두 실패하면 오류와 다시 시도 버튼을 표시합니다.
 - 최신 자료만 허용하려면 ALLOW_FALLBACK을 false로 바꿉니다.
@@ -162,7 +170,7 @@ cd eco-search
 npm test
 ```
 
-외부 패키지 없이 검색, 20개 자료, 공개 스키마, 가중 추천, API mock, 미게시 제외, 교사용 추가 열 제거, 캐시 히트·일부 손실, 오류 비노출, timeout/fallback을 검증합니다. Apps Script 테스트는 Node VM mock이므로 Google 서비스에서의 실제 인증·할당량·CORS를 검증하지는 않습니다.
+외부 패키지 없이 검색, 250개 자료, 공개 스키마, 가중 추천, API mock, 미게시 제외, 교사용 추가 열 제거, 캐시 히트·일부 손실, 오류 비노출, timeout/fallback을 검증합니다. Apps Script 테스트는 Node VM mock이므로 Google 서비스에서의 실제 인증·할당량·CORS를 검증하지는 않습니다.
 
 브라우저 통합 테스트는 서버를 실행한 상태에서:
 
