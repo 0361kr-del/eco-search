@@ -1,5 +1,16 @@
 # 생태계 자료 검색 — 6학년 과학 MVP
 
+## 다른 선생님께 배포하기
+
+**공유할 설치 안내:** https://0361kr-del.github.io/eco-search/teachers/
+
+- [독립 운영 ZIP 내려받기](https://0361kr-del.github.io/eco-search/teachers/namsan-starter.zip)
+- [교사용 설치·운영 안내](docs/TEACHER-GUIDE.md)
+
+받는 선생님은 자신의 Google 시트와 Apps Script를 만들고, 안내 페이지에서 config.js를 생성한 뒤 자기 GitHub 저장소의 `main /docs`를 게시합니다. 기존 운영 API·자료 250건·교사용 분류는 배포 ZIP에 포함하지 않습니다. 빈 목록과 fallback 비활성화로 시작하므로 연결 실패 시 원래 사이트 자료가 대신 노출되지 않습니다. 기존 운영 사이트의 자료와 설정은 유지합니다.
+
+유지보수: 학생 코드, 서버 코드 또는 안내서를 바꾸면 `python3 scripts/build-teacher-kit.py`로 ZIP과 안내 페이지의 다운로드 파일을 다시 생성하고 함께 커밋하세요. `npm test`는 ZIP이 최신 원본 코드와 일치하는지, 운영 API·자료가 들어가지 않았는지 검사합니다. 배포 ZIP에는 개발용 테스트·빌드 도구를 넣지 않으므로 받는 선생님은 Python/Node 설치가 필요 없습니다. 현재 저장소 개발 테스트에는 Python 3가 추가로 필요합니다.
+
 폐쇄형 자료 목록에서 자료를 찾고, 출처·관련성·인과관계를 학생이 직접 판단하는 검색/피드입니다. 정답, 신뢰도, 교사용 분류를 화면에 표시하지 않습니다. 계정, 검색 기록, 분석 추적, 저장 기능은 없습니다.
 
 ## 현재 운영 자료 (2026-10-14)
@@ -303,3 +314,4 @@ function setupArticlesSheet() {
 }
 
 ```
+
