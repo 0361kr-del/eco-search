@@ -5,15 +5,15 @@ import vm from 'node:vm';
 import {searchItems,weightedOrder} from '../public/js/search.js';
 import {sanitize,loadArticles} from '../public/js/api.js';
 const data=JSON.parse(fs.readFileSync(new URL('../public/data/fallback.json',import.meta.url)));
-test('public dataset: 250 unique articles and only allowed fields',()=>{assert.equal(data.items.length,250);assert.equal(new Set(data.items.map(x=>x.id)).size,250);for(const item of data.items)assert.deepEqual(Object.keys(item).sort(),['id','title','summary','content','source','author','date','image','type','tags','keywords','feedWeight'].sort());});
+test('public dataset: 130 unique articles and only allowed fields',()=>{assert.equal(data.items.length,130);assert.equal(new Set(data.items.map(x=>x.id)).size,130);for(const item of data.items)assert.deepEqual(Object.keys(item).sort(),['id','title','summary','content','source','author','date','image','type','tags','keywords','feedWeight'].sort());});
 test('search normalization, zero match, exact title and multiple-term ranking',()=>{
- assert.deepEqual(searchItems(data.items,'  스마트팜  '),searchItems(data.items,'스마트팜'));
+ assert.deepEqual(searchItems(data.items,'  전자석  '),searchItems(data.items,'전자석'));
  assert.equal(searchItems(data.items,'없는검색어123').length,0);
  assert.equal(searchItems(data.items,data.items[0].title)[0].id,data.items[0].id);
- assert.ok(searchItems(data.items,'스마트팜').length>0);
- assert.ok(searchItems(data.items,'KBO').length>0);
- assert.ok(searchItems(data.items,'EPL').length>0);
- assert.ok(searchItems(data.items,'인공지능').length>0);
+ assert.ok(searchItems(data.items,'전자석').length>0);
+ assert.ok(searchItems(data.items,'전기절약').length>0);
+ assert.ok(searchItems(data.items,'전기안전').length>0);
+ assert.ok(searchItems(data.items,'기중기').length>0);
  assert.ok(data.items.every(item=>item.content.length>=240));
  const base={summary:'',tags:[],keywords:[]};
  assert.deepEqual(searchItems([{...base,id:'b',title:'산호'},{...base,id:'a',title:'산호 바다'}],'산호 바다').map(x=>x.id),['a','b']);
@@ -21,7 +21,7 @@ test('search normalization, zero match, exact title and multiple-term ranking',(
 });
 test('weighted sampling has no repeats and favors higher weights',()=>{
  let seed=13;const random=()=>((seed=(seed*1664525+1013904223)>>>0)/4294967296);
- assert.equal(new Set(weightedOrder(data.items,random).map(x=>x.id)).size,250);
+ assert.equal(new Set(weightedOrder(data.items,random).map(x=>x.id)).size,130);
  let wins=0;for(let i=0;i<2000;i++)if(weightedOrder([{id:'high',feedWeight:10},{id:'low',feedWeight:1}],random)[0].id==='high')wins++;
  assert.ok(wins>1700&&wins<1900);
 });
@@ -57,19 +57,15 @@ test('client fallback, strict errors and timeout',async()=>{
  }finally{globalThis.fetch=original;}
 });
 
-test('student vocabulary, spacing, hashtags and aliases retrieve relevant articles',()=>{
+test('electricity collection has complete groups, substantial unique content and searchable tags',()=>{
+ for(const [prefix,count] of [['magnet',30],['efficiency',50],['safety',50]])assert.equal(data.items.filter(x=>x.id.startsWith(prefix+'-')).length,count);
+ assert.equal(new Set(data.items.map(x=>x.title)).size,130);
+ assert.equal(new Set(data.items.map(x=>x.content)).size,130);
+ for(const x of data.items){assert.equal(x.content.split('\n\n').length,3);assert.ok(x.content.length>=300);assert.ok(x.tags.length>=6);assert.equal(x.source,'NAMSAN 수업용 설명문');}
+ for(const [query,id] of [['전자석 기중기','magnet-001'],['공기펌프','magnet-029'],['LED','efficiency-001'],['감전사고','safety-047']])assert.ok(searchItems(data.items,query).some(x=>x.id===id),query);
  const ids=q=>searchItems(data.items,q).map(x=>x.id);
- assert.ok(ids('환경오염').length>=10);
- assert.deepEqual(ids('환경 오염'),ids('환경오염'));
- assert.deepEqual(ids('#환경오염'),ids('환경오염'));
- assert.ok(!searchItems(data.items,'환경오염').some(x=>x.tags.includes('스포츠')));
- assert.deepEqual(new Set(ids('AI')),new Set(ids('인공지능')));
- assert.deepEqual(new Set(ids('스마트 농장')),new Set(ids('스마트팜')));
- assert.ok(searchItems(data.items,'환경오염 직업')[0].title.includes('직업'));
- assert.deepEqual(searchItems([{id:'x',title:'내용',tags:['환경 오염'],keywords:[]}],'환경오염').map(x=>x.id),['x']);
- assert.equal(searchItems(data.items,'없는검색어123').length,0);
-});
-
-test('science solution cases are discoverable with student problem words',()=>{
- for(const [query,id] of [["환경오염","career-249"],["플라스틱 쓰레기","career-249"],["물부족","career-246"],["노인 건강","career-240"],["식량문제","career-248"],["이산화 탄소","career-211"],["과학 문제 해결","career-250"]]) assert.ok(searchItems(data.items,query).some(item=>item.id===id),query);
+ assert.equal(searchItems(data.items,'전기 안전').filter(x=>x.id.startsWith('safety-')).length,50);
+ assert.equal(searchItems(data.items,'전기안전').filter(x=>x.id.startsWith('safety-')).length,50);
+ assert.deepEqual(ids('#전기절약'),ids('전기절약'));
+ for(const [query,prefix,count] of [['전자석의 활용','magnet',30],['전기의 효율적 사용','efficiency',50],['전기의 안전한 사용','safety',50]])assert.equal(searchItems(data.items,query).filter(x=>x.id.startsWith(prefix+'-')).length,count);
 });
